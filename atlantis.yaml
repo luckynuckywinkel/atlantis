@@ -6,26 +6,3 @@ projects:
     autoplan:
       when_modified: ["*.tf"]
       enabled: true
-    apply_requirements: [approved]
-    workflow: myworkflow
-
-workflows:
-  myworkflow:
-    plan:
-      steps:
-        - run: |
-            cat <<EOF > secret.auto.tfvars
-            token = "${TF_VAR_token}"
-            cloud_id = "${TF_VAR_cloud_id}"
-            folder_id = "${TF_VAR_folder_id}"
-            service_account_id = "${TF_VAR_service_account_id}"
-            access_key = "${TF_VAR_access_key}"
-            secret_key = "${TF_VAR_secret_key}"
-            EOF
-        - run: cat secret.auto.tfvars  # Для отладки, можно убрать
-        - run: terraform init
-        - run: terraform plan -var-file=secret.auto.tfvars
-    apply:
-      steps:
-        - run: terraform apply -var-file=secret.auto.tfvars
-
