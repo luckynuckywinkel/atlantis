@@ -1,0 +1,20 @@
+#cloud-config
+users:
+  - name: lebedevai
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9uNCRS8Ww0cZCA1iYv0nFa2WCXpZlNiyBKxdp0zuVUOc+udLWo8dOJvstyDZFenA/Fb3lWSXvaqtKBAYm8utGate89aujGra7/nhzsOTEzLY8ZlhLZFU4I7lbhzpVd3sNxUF8WAoQTYYiMxC+i3I1Qli/mlL7BpAGFxouB61pdH+i0iYqrYxtzb/g/N8H1n2lMlm3diutn6olTpMZNvPfpoK7vDknFTnKuO5ITHaJu9XKGzuMZcAp97DG7a2SWpe2M9UR7aFqcQxButLvOMyvJeLImhdyIb34RkOXWygno13Pk3CfPIE5/fOyST/zuBRbbqDQURsQAaGUaly0PZjF
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo
+    shell: /bin/bash
+package_update: true
+package_upgrade: true
+packages:
+  - nginx
+  - nano
+  - software-properties-common
+runcmd:
+  - mkdir -p /home/lebedevai/.ssh
+  - chown -R lebedevai:lebedevai /home/lebedevai/.ssh
+  - chmod 700 /home/lebedevai/.ssh
+  - sudo add-apt-repository ppa:deadsnakes/ppa -y
+  - sudo apt-get update
