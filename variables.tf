@@ -88,7 +88,7 @@ variable "master_core" {
 
 variable "master_memory" {
   type        = number
-  default     = "8"
+  default     = "16"
 }
 
 variable "master_core_fraction" {
